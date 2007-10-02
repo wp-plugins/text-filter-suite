@@ -1,0 +1,114 @@
+<?php
+/*
+ * Plugin Name: TFS Core (Text Filter Suite)
+ * Plugin URI: http://dougal.gunters.org/blog/2004/08/30/text-filter-suite
+ * Description: Adds advanced text filtering functions which can mangle text in amusing ways.
+ * Author: Dougal Campbell
+ * Author URI: http://dougal.gunters.org/
+ * Version: 1.0
+ *
+ * Text Filters Suite
+ *
+ * This was originally released as a "hack", but this is an updated
+ * version in "plugin" format. I have broken up the actual text 
+ * filtering functions from the various implementations. I've also
+ * added some PostMeta (AKA "custom fields") support, which provides
+ * the ability to apply specific filters to post and/or comment text
+ * on a per-post basis.
+ *
+ * Released under the GPL.
+ *
+ * BACKGROUND:
+ *
+ * This started when I added a pirate filter to my blog for Talk Like
+ * a Pirate Day (talklikeapirate.com). My first version was easier
+ * than I expected it to be (though it had flaws), which inspired me
+ * to locate and convert some of Kalsey's MovableJive filters.
+ * 
+ * The earliest version had a flaw, in that it would filter text inside of
+ * HTML tags, causing it to mangle links and such. I fixed this by borrowing
+ * an idea from Simon Willison. Simon's use of a callback function to only
+ * match text that was not part of a tag was good, but it included the '>'
+ * and '<' brackets from surrounding tags, requiring you to hack them back
+ * in at the end of your content filter.  
+ * 
+ * After an afternoon studying the pcre pattern syntax and wrestling regexps
+ * with the help of the Regex Coach (http://weitz.de/regex-coach/) I came up
+ * with an improved pattern, which doesn't require us to tack the '>' and
+ * '<' back on manually. Cool, huh?
+ *
+ */
+
+// An idea from Simon Willison (http://simon.incutio.com/)
+// This tries to make sure that we only filter text *between*
+// any HTML tags, and not *within* them.
+function filter_cdata_content($content, $filter='none') {
+	if (function_exists($filter)) {
+		$content = preg_replace_callback('/(?(?<=>)|\A)([^<>]+)(?(?=<)|\Z)/s', $filter, $content);
+	}
+
+	return $content;
+}
+
+// This function takes an array of ('/pattern/' => 'replacement') pairs
+// and applies them all to $content.
+function array_apply_regexp($patterns,$content) {
+	// Extract the values:
+	$keys = array_keys($patterns);
+	$values = array_values($patterns);
+	
+	// Replace the words:
+	$content = preg_replace($keys,$values,$content);
+
+	return $content;
+}
+
+// Per-post filtering support. This is added as a filter hook
+// on 'the_content', so it gets called during The Loop for
+// each post displayed. We check for a post custom field
+// named 'post_filter', and apply any filters named there.
+function tfs_content_filter($content) {
+	$filters = get_post_custom_values('post_filter');
+	if (is_array($filters)) {
+		foreach ($filters as $filter) {
+			$filter = trim($filter);
+			if (function_exists($filter)) {
+				$content = call_user_func($filter,$content);
+			}
+		}
+	}
+	
+	return $content;
+}
+
+// The same as above, but for comments. Uses a post custom field
+// named 'comment_filter', and hooks into the 'comment_text' filter.
+function tfs_comment_filter($content) {
+	$filters = get_post_custom_values('comment_filter');
+	if (is_array($filters)) {
+		foreach ($filters as $filter) {
+			$filter = trim($filter);
+			if (function_exists($filter)) {
+				$content = call_user_func($filter,$content);
+			}
+		}
+	}
+	
+	return $content;
+}
+
+
+// end of functions. Main code starts:
+
+// Generic check for filters passed via the URL:
+$filtname = $_GET['filter'];
+
+if (function_exists($filtname)) {
+	add_filter('all',$filtname);
+}
+
+// Add handlers for per-post filtering:
+add_filter('the_content','tfs_content_filter');
+add_filter('comment_text','tfs_comment_filter');
+
+?>
