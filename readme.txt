@@ -1,11 +1,15 @@
-                              TEXT FILTER SUITE
-             Advanced content filtering functions for WordPress
-                   by Dougal Campbell <dougal@gunters.org>
-                         http://dougal.gunters.org/
+=== Text Filter Suite ===
+Contributors: dougal
+Donate link: http://dougal.gunters.org/donate
+Tags: content, comments, filters, fun, funny, humor, pirates, talklikeapirate
+Requires at least: 1.5
+Tested up to: 2.3
+Stable tag: 1.0
 
+Advanced filtering functions for WordPress, including the Talk Like a
+Pirate Day filters.
 
-WHAT IS IT?
------------
+== Description ==
 
 The Text Filter Suite ("TFS", hereafter) is a WordPress plugin which
 adds some new text filtering functions. In a sense, the core TFS
@@ -15,12 +19,11 @@ They also provide an easy way to apply filters to post content and
 comments on a per-post basis.
 
 
-HUH? CAN YOU REPEAT THAT IN ENGLISH?
-------------------------------------
+= Huh? Can you repeat that in English? = 
 
 Okay, let's try a real-world example. A common feature on many web
 sites is the automatic handling of acronyms. You'll often see an
-acronym such as "XTML" displayed in an alternate style, and when you
+acronym such as "XHTML" displayed in an alternate style, and when you
 hover your mouse pointer over it, you get a tool-tip which displays the
 definition ("eXtended HyperText Markup Language", in this case). You
 don't want to have to type in the markup for this every time you post
@@ -43,10 +46,9 @@ of course, the aforementioned "acronymit". As a word of caution, the
 correct".
 
 
-INSTALLATION
-------------
+== Installation ==
 
-Technically, all you need to do is copy the core "tfs-core.php" file
+Technically, all you need to do is copy the "text-filter-suite" folder
 into your "wp-content/plugins" directory, then activate the "TFS Core"
 plugin from the WordPress admin interface. But, more generally, you'll
 probably want some of the other filter files, as well. The easiest
@@ -56,13 +58,11 @@ you can omit any of the "tfs-whatever.php" files (other than tfs-core)
 that don't interest you.
 
 
-USING THE FILTERS
------------------
+= Using the filters =
 
 Generally, you'll probably want to activate a filter just for specific
 posts. You do this by adding special "post custom fields" in the
-"Advanced Editing" form (you also get the Advanced Editing options when
-you edit a draft, or previously published post). 
+"Write Post" form.
 
 Custom fields are composed of two parts: the "key" and the "value". The
 two special keys that activate TFS are "post_filter" and
@@ -75,8 +75,7 @@ text. Setting the "comment_filter" key will apply the filter to the
 text of all comments on the post.
 
 
-TECHNICAL MUMBO-JUMBO
----------------------
+= Technical mumbo-jumbo =
 
 There are only two core TFS functions, plus two more to support the
 per-post content and comment filtering based on post custom fields. The
@@ -108,8 +107,7 @@ all content will have the "fudd" filter applied to it, regardless of
 whether any TFS-related post custom fields are set. 
 
 
-OTHER NOTES
------------
+== Other notes ==
 
 By default, if the "TFS Pirate" filter is active, it will automatically
 apply itself to all content on Talk Like a Pirate Day (September 19).
@@ -148,8 +146,7 @@ transform it into ">p<", which will confuse your browser in new and
 wonderful ways.
 
 
-CREDITS
--------
+== Credits ==
 
 I created TFS on my own, but I borrowed ideas from several sources. Here are
 some links you might also want to check out:
