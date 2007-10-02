@@ -5,7 +5,7 @@
  * Description: Adds advanced text filtering functions which can mangle text in amusing ways.
  * Author: Dougal Campbell
  * Author URI: http://dougal.gunters.org/
- * Version: 1.0
+ * Version: 1.1
  *
  * Text Filters Suite
  *
@@ -69,7 +69,7 @@ function array_apply_regexp($patterns,$content) {
 // named 'post_filter', and apply any filters named there.
 function tfs_content_filter($content) {
 	$filters = get_post_custom_values('post_filter');
-	if (is_array($filters)) {
+	if (!is_feed() && is_array($filters)) {
 		foreach ($filters as $filter) {
 			$filter = trim($filter);
 			if (function_exists($filter)) {
@@ -85,7 +85,7 @@ function tfs_content_filter($content) {
 // named 'comment_filter', and hooks into the 'comment_text' filter.
 function tfs_comment_filter($content) {
 	$filters = get_post_custom_values('comment_filter');
-	if (is_array($filters)) {
+	if (!is_feed() && is_array($filters)) {
 		foreach ($filters as $filter) {
 			$filter = trim($filter);
 			if (function_exists($filter)) {
@@ -97,18 +97,33 @@ function tfs_comment_filter($content) {
 	return $content;
 }
 
+function tfs_init() {
+	// Using REQUEST so that you could set the filter in
+	// a cookie, for persistence, if you wanted.
+	$filtname = $_REQUEST['filter'];
 
-// end of functions. Main code starts:
-
-// Generic check for filters passed via the URL:
-$filtname = $_GET['filter'];
-
-if (function_exists($filtname)) {
-	add_filter('all',$filtname);
+	if (function_exists($filtname)) {
+		add_filter('category_description',$filtname);
+		add_filter('comment_author',$filtname);
+		add_filter('comment_text',$filtname);
+		add_filter('single_post_title',$filtname);
+		add_filter('the_title',$filtname);
+		add_filter('the_content',$filtname);
+		add_filter('the_excerpt',$filtname);
+		add_filter('comment_excerpt',$filtname);
+		add_filter('list_cats',$filtname);
+	}
 }
 
-// Add handlers for per-post filtering:
-add_filter('the_content','tfs_content_filter');
-add_filter('comment_text','tfs_comment_filter');
+// Generic check for filters passed via the URL (excluding
+// feed requests):
+if ( ! is_feed() ) {
+	add_action('init','tfs_init');
+
+	// Add handlers for per-post filtering:
+	add_filter('the_content','tfs_content_filter');
+	add_filter('the_title','tfs_content_filter');
+	add_filter('comment_text','tfs_comment_filter');
+}
 
 ?>
