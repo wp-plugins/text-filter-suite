@@ -3,7 +3,7 @@ Contributors: dougal
 Donate link: http://dougal.gunters.org/donate
 Tags: content, comments, filters, fun, funny, humor, pirates, talklikeapirate
 Requires at least: 1.5
-Tested up to: 2.3
+Tested up to: 2.9
 Stable tag: 1.0
 
 Advanced filtering functions for WordPress, including the Talk Like a
