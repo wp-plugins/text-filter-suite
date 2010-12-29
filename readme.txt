@@ -1,10 +1,10 @@
 === Text Filter Suite ===
 Contributors: dougal
 Donate link: http://dougal.gunters.org/donate
-Tags: content, comments, filters, fun, funny, humor, pirates, talklikeapirate
+Tags: content, comments, filters, fun, funny, humor, pirates, talklikeapirate, talk like a pirate, pirate day
 Requires at least: 1.5
-Tested up to: 2.3
-Stable tag: 1.0
+Tested up to: 3.0.4
+Stable tag: 1.2
 
 Advanced filtering functions for WordPress, including the Talk Like a
 Pirate Day filters.
@@ -106,6 +106,12 @@ view. For example, if you browse to "http://example.com/?filter=fudd",
 all content will have the "fudd" filter applied to it, regardless of
 whether any TFS-related post custom fields are set. 
 
+== Changelog ==
+= 1.2 - 2010-12-10 =
+* Added this changelog to the readme
+* Moved the is_feed() handling into the init, to avoid breaking in
+  WordPress 3.1.
+* Added notes about the filters being CPU intensive.
 
 == Other notes ==
 
@@ -145,6 +151,29 @@ For example, applying the strrev function to the string "<p>" will
 transform it into ">p<", which will confuse your browser in new and
 wonderful ways.
 
+NOTE: These filters can be very CPU intensive. For one thing, they make
+extensive use of regular expressions, which can be expensive on their own. 
+And for another, they break your content into many small chunks, in order to
+separate the filterable text from the HTML code, and the filters run
+separately on each text chunk found.  This probably won't be a problem in
+most cases.  But if you have long posts being filtered, and you get a lot of
+traffic, it could start to add up.  A caching plugin (e.g., WP Super Cache,
+or W3 Total Cache) would probably help in that case.
+
+== The Future ==
+
+I will one day release a version 2.0 of this plugin which will be completely
+refactored. You can probably expect to see:
+* Consolidate the code so that it is not a collection of separately-enabled
+  mini-plugins.
+* PHP5 OOP architecture to encapsulate everything.
+* An actual admin interface to select which filters are enabled, which 
+  bits of content you will allow to be filtered (post titles, post content, comments,
+  blog title, widget titles, etc), whether to auto-activate the Pirate
+  filter on Talk Like a Pirate Day, etc.
+
+Eventually, there may also be a way to edit the string substitutions so that
+you can tailor it to your tastes.
 
 == Credits ==
 
