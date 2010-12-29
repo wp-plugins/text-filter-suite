@@ -1,11 +1,12 @@
 <?php
 /*
  * Plugin Name: TFS Core (Text Filter Suite)
- * Plugin URI: http://dougal.gunters.org/blog/2004/08/30/text-filter-suite
+ * Plugin URI: http://dougal.gunters.org/plugins/text-filter-suite
  * Description: Adds advanced text filtering functions which can mangle text in amusing ways.
  * Author: Dougal Campbell
  * Author URI: http://dougal.gunters.org/
- * Version: 1.1
+ * Version: 1.2
+ * License: GPL2
  *
  * Text Filters Suite
  *
@@ -37,6 +38,11 @@
  * with an improved pattern, which doesn't require us to tack the '>' and
  * '<' back on manually. Cool, huh?
  *
+ * NOTE:
+ *   These filters are very CPU intensive. It's breaking up your HTML into
+ *   smaller chunks, and filtering each of those chunks individually, using
+ *   regular expressions, which themselves are CPU-greedy. If you use this
+ *   heavily on a site with a lot of traffic, caching might be a good idea.
  */
 
 // An idea from Simon Willison (http://simon.incutio.com/)
@@ -98,6 +104,16 @@ function tfs_comment_filter($content) {
 }
 
 function tfs_init() {
+	// Don't filter feeds, it causes headaches.
+	if ( is_feed() ) {
+		return;
+	}
+
+	// Add handlers for per-post filtering:
+	add_filter('the_content','tfs_content_filter');
+	add_filter('the_title','tfs_content_filter');
+	add_filter('comment_text','tfs_comment_filter');
+
 	// Using REQUEST so that you could set the filter in
 	// a cookie, for persistence, if you wanted.
 	$filtname = $_REQUEST['filter'];
@@ -115,15 +131,7 @@ function tfs_init() {
 	}
 }
 
-// Generic check for filters passed via the URL (excluding
-// feed requests):
-if ( ! is_feed() ) {
-	add_action('init','tfs_init');
-
-	// Add handlers for per-post filtering:
-	add_filter('the_content','tfs_content_filter');
-	add_filter('the_title','tfs_content_filter');
-	add_filter('comment_text','tfs_comment_filter');
-}
+// initialize
+add_action('init','tfs_init');
 
 ?>
