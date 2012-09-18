@@ -1,7 +1,7 @@
 <?php
 /*
  * Plugin Name: TFS Fudd
- * Version: 1.0
+ * Version: 1.3
  * Plugin URI: http://dougal.gunters.org/blog/2004/08/30/text-filter-suite
  * Description: Elmer Fudd filter. (Requires TFS Core)
  * Author: Dougal Campbell
@@ -39,4 +39,3 @@ function fudd_filter($content) {
 	return $content;
 }
 
-?>

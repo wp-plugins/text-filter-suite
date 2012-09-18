@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: TFS Swedish Chef
-Version: 1.0
+Version: 1.3
 Plugin URI: http://dougal.gunters.org/blog/2004/08/30/text-filter-suite
 Description: E Svedish Chef Vilter, Bork Bork Bork! (Requires TFS Core)
 Author: Dougal Campbell
@@ -74,4 +74,3 @@ function chef_filter($content) {
 	return $content;
 }
 
-?>
