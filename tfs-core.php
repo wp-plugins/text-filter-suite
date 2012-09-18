@@ -5,8 +5,8 @@
  * Description: Adds advanced text filtering functions which can mangle text in amusing ways.
  * Author: Dougal Campbell
  * Author URI: http://dougal.gunters.org/
- * Version: 1.2
- * License: GPL2
+ * Version: 1.3
+ * License: GPL2, GPL3
  *
  * Text Filters Suite
  *
@@ -114,6 +114,7 @@ function tfs_init() {
 	add_filter('the_title','tfs_content_filter');
 	add_filter('comment_text','tfs_comment_filter');
 
+/*
 	// Using REQUEST so that you could set the filter in
 	// a cookie, for persistence, if you wanted.
 	$filtname = $_REQUEST['filter'];
@@ -129,9 +130,9 @@ function tfs_init() {
 		add_filter('comment_excerpt',$filtname);
 		add_filter('list_cats',$filtname);
 	}
+*/
 }
 
 // initialize
 add_action('init','tfs_init');
 
-?>

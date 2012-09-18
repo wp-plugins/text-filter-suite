@@ -1,7 +1,7 @@
-<?
+<?php
 /*
  * Plugin Name: TFS Acronymit
- * Version: 1.0
+ * Version: 1.3
  * Plugin URI: http://dougal.gunters.org/blog/2004/08/30/text-filter-suite
  * Description: An acronym tagging filter. (Requires TFS Core)
  * Author: Dougal Campbell
@@ -106,6 +106,7 @@ function acronymit($text) {
 		);
 
 	foreach ($acronyms as $acronym => $definition) {
+		$definition = esc_attr($definition);
 		$newacronyms["%\b$acronym\b%"] = "<acronym title='$definition'><span class='caps'>$acronym</span></acronym>";
 	}
 
@@ -114,4 +115,3 @@ function acronymit($text) {
 	return $text;
 }
 
-?>

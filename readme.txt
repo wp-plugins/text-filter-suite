@@ -4,7 +4,7 @@ Donate link: http://dougal.gunters.org/donate
 Tags: content, comments, filters, fun, funny, humor, pirates, talklikeapirate, talk like a pirate, pirate day
 Requires at least: 1.5
 Tested up to: 3.4.2
-Stable tag: 1.2
+Stable tag: 1.3
 
 Advanced filtering functions for WordPress, including the Talk Like a
 Pirate Day filters.
@@ -107,6 +107,12 @@ all content will have the "fudd" filter applied to it, regardless of
 whether any TFS-related post custom fields are set. 
 
 == Changelog ==
+= 1.3 - 2012-09-18 =
+* Fixed PHP opening shorttag in tfs-acroymit.php
+* Eliminated PHP warnings in debug mode
+* Removed all closing ?> php tags per WP standards
+* Killed generic 'filter' $_REQUEST variable checking
+
 = 1.2 - 2010-12-10 =
 * Added this changelog to the readme
 * Moved the is_feed() handling into the init, to avoid breaking in
