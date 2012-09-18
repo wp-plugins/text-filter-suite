@@ -1,7 +1,7 @@
 <?php
 /*
  * Plugin Name: TFS Jive
- * Version: 1.0
+ * Version: 1.2
  * Plugin URI: http://dougal.gunters.org/blog/2004/08/30/text-filter-suite
  * Description: Jive filter, sucka! (Requires TFS Core)
  * Author: Dougal Campbell

@@ -1,7 +1,7 @@
 <?php
 /*
  * Plugin Name: TFS Pirate
- * Version: 1.1
+ * Version: 1.2
  * Plugin URI: http://dougal.gunters.org/blog/2004/08/30/text-filter-suite
  * Description: Pirate filter, me matey! Arrrr! (Requires TFS Core)
  * Author: Dougal Campbell
