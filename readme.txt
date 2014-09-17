@@ -3,7 +3,7 @@ Contributors: dougal
 Donate link: http://dougal.gunters.org/donate
 Tags: content, comments, filters, fun, funny, humor, pirates, talklikeapirate, talk like a pirate, pirate day
 Requires at least: 1.5
-Tested up to: 3.4.2
+Tested up to: 4.0
 Stable tag: 1.3
 
 Advanced filtering functions for WordPress, including the Talk Like a
@@ -99,12 +99,6 @@ The per-post support functions are "tfs_content_filter" and
 post and its contents. They look for the "content_filter" and
 "comment_filter" post custom fields, and apply the appropriate filter
 functions if they are found.
-
-Lastly, the core functions will look for a querystring variable named
-"filter", and attempt to apply the named filter to the current page
-view. For example, if you browse to "http://example.com/?filter=fudd",
-all content will have the "fudd" filter applied to it, regardless of
-whether any TFS-related post custom fields are set. 
 
 == Changelog ==
 = 1.3 - 2012-09-18 =
