@@ -3,7 +3,7 @@ Contributors: dougal
 Donate link: http://dougal.gunters.org/donate
 Tags: content, comments, filters, fun, funny, humor, pirates, talklikeapirate, talk like a pirate, pirate day
 Requires at least: 1.5
-Tested up to: 4.0
+Tested up to: 4.3
 Stable tag: 1.3
 
 Advanced filtering functions for WordPress, including the Talk Like a
@@ -101,6 +101,10 @@ post and its contents. They look for the "content_filter" and
 functions if they are found.
 
 == Changelog ==
+= 1.4 - 2015-06-03 =
+* Added '?filter=foo' URL option back in, with a whitelist of allowed
+  functions.
+
 = 1.3 - 2012-09-18 =
 * Fixed PHP opening shorttag in tfs-acroymit.php
 * Eliminated PHP warnings in debug mode

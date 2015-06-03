@@ -5,7 +5,7 @@
  * Description: Adds advanced text filtering functions which can mangle text in amusing ways.
  * Author: Dougal Campbell
  * Author URI: http://dougal.gunters.org/
- * Version: 1.3
+ * Version: 1.4
  * License: GPL2, GPL3
  *
  * Text Filters Suite
@@ -44,6 +44,13 @@
  *   regular expressions, which themselves are CPU-greedy. If you use this
  *   heavily on a site with a lot of traffic, caching might be a good idea.
  */
+
+/* Allowed functions for global filter set via URL */
+$tfs_allowed_funcs = array(
+	'pirate', 'jive', 'chef', 'acronymit', 'fudd', 'kraut',
+	'strtolower', 'strtoupper', 'str_rot13',
+	'lcfirst', 'ucfirst', 'ucwords'
+);
 
 // An idea from Simon Willison (http://simon.incutio.com/)
 // This tries to make sure that we only filter text *between*
@@ -104,6 +111,8 @@ function tfs_comment_filter($content) {
 }
 
 function tfs_init() {
+        global $tfs_allowed_funcs;
+        
 	// Don't filter feeds, it causes headaches.
 	if ( is_feed() ) {
 		return;
@@ -114,12 +123,13 @@ function tfs_init() {
 	add_filter('the_title','tfs_content_filter');
 	add_filter('comment_text','tfs_comment_filter');
 
-/*
+
 	// Using REQUEST so that you could set the filter in
 	// a cookie, for persistence, if you wanted.
 	$filtname = $_REQUEST['filter'];
 
-	if (function_exists($filtname)) {
+	if (function_exists($filtname) && 
+	  in_array($filtname, $tfs_allowed_funcs)) {
 		add_filter('category_description',$filtname);
 		add_filter('comment_author',$filtname);
 		add_filter('comment_text',$filtname);
@@ -130,7 +140,7 @@ function tfs_init() {
 		add_filter('comment_excerpt',$filtname);
 		add_filter('list_cats',$filtname);
 	}
-*/
+
 }
 
 // initialize
